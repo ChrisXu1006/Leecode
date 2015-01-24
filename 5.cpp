@@ -59,9 +59,69 @@ string longestPalindrome(string s){
 	return s.substr((centerIndex - 1 - maxLen)/2, maxLen);
 }
 
+string longestPalindrome1(string s){
+	
+	if ( s == "" )
+		return "";
+	
+	string buf = "";
+	for ( int i = 0; i < s.length(); i ++ )
+		buf = buf + "#" + s[i];
+	buf = buf + "#";
+	
+	int len = buf.length();
+	int maxIndex = 0;
+	int max = 0;
+	int P[len];
+
+	for ( int i = 0; i < len; i++ ){
+		int L = i-1;
+		int R = i+1;
+		
+		
+		if ( buf[i] == '#' ){
+			int diff = min(i - 0, len - 1 - i);
+			P[i] = 0;
+			if ( diff*2 <= max)
+				continue;
+		}
+		else{
+			int diff = min(i - 0, len - 1 - i);
+			P[i] = 1;
+			if ( diff*2 + 1 <= max)
+				continue;
+		}
+		
+		while ( L >= 0 && R < len ){
+			if ( buf[L] == buf[R] && buf[L] != '#'){
+				P[i] += 2;
+				L--;
+				R++;
+			}
+			
+			else if ( buf[L] != buf[R] )
+				break;
+			
+			else{
+				L--;
+				R++;
+			}
+		}
+		if ( P[i] > max ){
+			max = P[i];
+			maxIndex = i;
+		}
+	}
+	
+	if ( buf[maxIndex] == '#' )
+		return s.substr((maxIndex/2 - max/2), max);
+	else
+		return s.substr((maxIndex/2 - (max+1)/2+1), max);
+}
+
 int main(){
 	
-	string s = "abba";
-	cout << longestPalindrome(s);
+	string s = "abb";
+	cout << longestPalindrome1(s);
 	return 0;
 }
