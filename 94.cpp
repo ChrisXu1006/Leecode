@@ -41,31 +41,30 @@ void traverse_print(TreeNode *root){
 }
 
 void traverse(vector<int> &result, TreeNode *root){
-      if ( root == NULL )
-          return;
-      
-      traverse(result, root->left);
-      result.push_back(root->val);
-      traverse(result, root->right);
-      
-      return;
-  }
-  
-vector<int> inorderTraversal1(TreeNode *root) {
-      vector<int> result;
-      traverse(result, root);
-      return result;
+   if ( root == NULL )
+       return;
+   
+   result.push_back(root->val);
+   traverse(result, root->left);
+   traverse(result, root->right);
+   
+   return;
+ }
+ 
+vector<int> preorderTraversal(TreeNode *root) {
+   vector<int> result;
+   traverse(result, root);
+   return result;
 }
 
-
 int main(){
-	TreeNode*root = new TreeNode(2);
-	int a[] = { 1, 3};
-	for ( int i = 0; i < 2; i ++ )
+	TreeNode*root = new TreeNode(5);
+	int a[] = {3, 1, 2, 8, 6, 9 };
+	for ( int i = 0; i < 6; i ++ )
 		insert(root, a[i]);
-	vector<int> result = inorderTraversal1(root);
+	vector<int> result = preorderTraversal(root);
 	for ( int i = 0; i < result.size(); i++ ){
-		cout << result[i] << " " << endl;
+		cout << result[i] << " ";
 	}
 	return 0;
 }
