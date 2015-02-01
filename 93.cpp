@@ -50,7 +50,7 @@ vector<string> restoreIpAddresses(string s){
 		return result;
 	
 	result = isValid(s);
-	return result;
+	return 
 }
 
 int main(){
