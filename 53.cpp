@@ -1,28 +1,35 @@
 #include <iostream>
 #include <cmath>
-#include <cfloat>
-#include <limits>
 #include <cstring>
 #include <string>
 #include <vector>
 
 using namespace std;
-	
-double power(double x, int n){
+
+int maxSubArray(int A[], int n){
 	
 	if ( n == 0 )
-		return 1;
+		return 0;
 	
-	double v = power(x, n/2);
-
-	if (n % 2 == 0 )
-		return v * v;
+	int local = 0;
+	int global = INT_MIN;
 	
-	else
-		return v * v * x;
+	for ( int i = 0; i < n; i++ )
+	{
+		if ( local + A[i] < A[i])
+			local = A[i];
+		else 
+			local = local + A[i];
+		
+		if ( local > global )
+			global = local;
+	}
+	return global;
+	
 }
 
 int main(){
-	cout << power(2.0, 4);
+	int A[] = { -2, 1, -3, 4, -1, 2, 1, -5, 4};
+	cout << maxSubArray(A, 9);
 	
 }
