@@ -1,48 +1,32 @@
 #include <iostream>
-#include <stdio.h>
 #include <cstring>
 #include <string>
 #include <vector>
-#include <queue>
-#include <stack>
-#include <map>
 
 using namespace std;
 
-int longestConsecutive(vector<int> &num) {
-	unordered_map<int,bool> map;
-	for ( int i = 0; i < num.size(); i++ )
-		map[num[i]] = true;
-	
-	int res = 0;
-	for ( int i = 0; i < num.size(); i++ ){
-		int max = 1;
-		int fd = num[i];
-		
-		map.erase(num[i]);
-		while (map.find(fd+1) != map.end()){
-			max++;
-			map.erase(fd+1);
-			fd++;
-		}
-		
-		fd = num[i];
-		while (map.find(fd-1)!= map.end()){
-			max++;
-			map.erase(fd-1);
-			fd--;
-		}
-		
-		if ( max >res )
-			res = max;
-	}
-	return res;
+int minCut(string s){
+ int len = s.size();  
+            int D[len+1];  
+            bool P[len][len];  
+            //the worst case is cutting by each char  
+            for(int i = 0; i <= len; i++)   
+            D[i] = len-i;  
+            for(int i = 0; i < len; i++)  
+            for(int j = 0; j < len; j++)  
+            P[i][j] = false;  
+            for(int i = len-1; i >= 0; i--){  
+                 for(int j = i; j < len; j++){  
+                      if(s[i] == s[j] && (j-i<2 || P[i+1][j-1])){  
+                           P[i][j] = true;  
+                           D[i] = min(D[i],D[j+1]+1);  
+                      }  
+                 }  
+            }  
+            return D[0]-1;
 }
-   
+
 int main(){
-	int A[] = {100, 4, 200, 1, 3, 2};
-	vector<int> num;
-	for ( int i = 0; i < 6; i++ )
-		num.push_back(A[i]);
-	cout << longestConsecutive(num);
+	string s = "aab";
+	cout << minCut(s);
 }
