@@ -82,6 +82,22 @@ string intToRoman(int num){
 	
 }
 
+string intToRoman2(int num) {
+       int A[13] = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
+       string B[13] = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
+       string s = "";
+       for ( int i = 12; i >= 0; i-- ){
+           int count = num/A[i];
+           int tmp = count;
+           while (tmp){
+               s = s + B[i];
+               tmp--;
+           }
+           num = num - A[i] * count;
+       }
+       return s;
+   }
+   
 int main(){
 	cout << intToRoman(1800);
 }
